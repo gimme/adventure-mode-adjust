@@ -20,16 +20,18 @@ public class NeoForgeServerConfig extends ServerConfig {
     private static final ModConfigSpec.ConfigValue<Config> CAN_PLACE_ON = BUILDER
             .comment("""
                     What blocks specific items can be placed on when in adventure mode.
-                    This uses regex patterns. For example, `"ladder|obsidian|tnt": ".*"` allows ladders, obsidian and tnt to be placed
-                    on any block.
+                    This uses regex patterns. For example, `"ladder|torch": ".*"` allows ladders and torches to be placed
+                    on any block, and `"obsidian": "obsidian"` allows obsidian to be placed only on other obsidian blocks.
                     
-                    If a colon (":") is included, the pattern is matched against the full namespaced ID (e.g., minecraft:dirt).
+                    If a colon (":") is included, the pattern is matched against the full namespaced IDs (e.g., minecraft:dirt).
                     This can be useful to target specific mods.""")
             .define(
                     "canPlaceOn",
                     () -> {
                         Config defaultConfig = TomlFormat.newConfig();
-                        defaultConfig.set("ladder|obsidian|tnt", ".*");
+                        defaultConfig.set("ladder|torch|tnt", ".*");
+                        defaultConfig.set("crafting_table|furnace|campfire", "grass_block|stone|deepslate");
+                        defaultConfig.set("obsidian", "obsidian");
                         defaultConfig.set("ender_eye", "end_portal_frame");
                         return defaultConfig;
                     },
@@ -39,12 +41,14 @@ public class NeoForgeServerConfig extends ServerConfig {
     private static final ModConfigSpec.ConfigValue<Config> CAN_BREAK = BUILDER
             .comment("""
                     What blocks specific items can break when in adventure mode.
-                    For example, `".*": "ladder|obsidian"` allows any held item to break ladders and obsidian.""")
+                    For example, `".*": "ladder|.*_log"` allows any held item to break ladders and any type of tree.
+                    
+                    For using only your fists, "air" is the key.""")
             .define(
                     "canBreak",
                     () -> {
                         Config defaultConfig = TomlFormat.newConfig();
-                        defaultConfig.set(List.of(".*"), "ladder|obsidian");
+                        defaultConfig.set(List.of(".*"), "ladder|torch|wall_torch|.*_log|.*_ore|obsidian|netherrack|end_stone");
                         return defaultConfig;
                     },
                     NeoForgeServerConfig::validateRegexMap
