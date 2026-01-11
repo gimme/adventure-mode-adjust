@@ -86,7 +86,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           # CurseForge
-          curseforge-id: # TODO: add curseforge project id
+          curseforge-id: 1426640
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
           # TODO: Enable when Modrinth project is set up
