@@ -48,7 +48,7 @@ public class NeoForgeServerConfig extends ServerConfig {
                     "canBreak",
                     () -> {
                         Config defaultConfig = TomlFormat.newConfig();
-                        defaultConfig.set(List.of(".*"), "ladder|torch|wall_torch|.*_log|.*_ore|obsidian|netherrack|end_stone");
+                        defaultConfig.set(List.of(".*"), "ladder|torch|wall_torch|.*_log|.*_ore|obsidian|netherrack|nether_wart|end_stone");
                         return defaultConfig;
                     },
                     NeoForgeServerConfig::validateRegexMap
