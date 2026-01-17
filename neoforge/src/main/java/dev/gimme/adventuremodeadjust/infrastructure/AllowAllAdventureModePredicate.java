@@ -13,7 +13,7 @@ public class AllowAllAdventureModePredicate extends AdventureModePredicate {
     public static final AllowAllAdventureModePredicate INSTANCE = new AllowAllAdventureModePredicate();
 
     public AllowAllAdventureModePredicate() {
-        super(List.of(), false);
+        super(List.of());
     }
 
     @Override
